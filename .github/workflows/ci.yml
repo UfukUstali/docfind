@@ -66,6 +66,6 @@ jobs:
       run: npx --yes esbuild --bundle wasm/pkg/docfind.js --format=esm --minify --outfile=wasm/pkg/docfind.js --allow-overwrite
     
     - name: Build CLI
-      run: cargo build --release -p cli --target ${{ matrix.target }}
+      run: cargo build --release -p docfind --target ${{ matrix.target }}
       env:
         CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
