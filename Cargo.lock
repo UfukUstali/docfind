@@ -63,7 +63,7 @@ checksum = "790eea4361631c5e7d22598ecd5723ff611904e3344ce8720784c93e3d83d40b"
 name = "docfind"
 version = "0.1.0"
 dependencies = [
- "search",
+ "docfind_core",
  "serde_json",
  "wasm-encoder",
  "wasmparser",
@@ -73,10 +73,22 @@ dependencies = [
 name = "docfind-wasm"
 version = "0.1.0"
 dependencies = [
+ "docfind_core",
  "js-sys",
- "search",
  "serde_json",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "docfind_core"
+version = "0.1.0"
+dependencies = [
+ "fsst-rs",
+ "fst",
+ "postcard",
+ "rake",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -321,18 +333,6 @@ name = "scopeguard"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
-
-[[package]]
-name = "search"
-version = "0.1.0"
-dependencies = [
- "fsst-rs",
- "fst",
- "postcard",
- "rake",
- "serde",
- "serde_json",
-]
 
 [[package]]
 name = "semver"

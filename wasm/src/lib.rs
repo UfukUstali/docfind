@@ -1,4 +1,4 @@
-use search::Index;
+use docfind_core::Index;
 use std::sync::OnceLock;
 use wasm_bindgen::prelude::*;
 
@@ -26,7 +26,7 @@ pub fn search(query: &str, max_results: Option<usize>) -> Result<String, JsValue
 		Index::from_bytes(raw_index).expect("Failed to deserialize index")
 	});
 
-	let result = search::search(index, query, max_results.unwrap_or(10))
+	let result = docfind_core::search(index, query, max_results.unwrap_or(10))
 		.map_err(|e| JsValue::from_str(&format!("Search failed: {}", e)))?;
 
 	// TODO: can we return this as a JS object directly instead of serializing to JSON?

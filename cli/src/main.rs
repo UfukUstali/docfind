@@ -1,4 +1,4 @@
-use search::Document;
+use docfind_core::Document;
 use std::io::Write;
 use std::path::Path;
 use std::{collections::HashMap, fs::File};
@@ -88,7 +88,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let documents: Vec<Document> = serde_json::from_reader(documents_file)?;
 
 	let start = std::time::Instant::now();
-	let index = search::build_index(documents)?;
+	let index = docfind_core::build_index(documents)?;
 	let duration = start.elapsed();
 	println!("Indexing completed in: {:?}", duration);
 
@@ -100,10 +100,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let mut index_len_global_index: Option<u32> = None;
 	let mut i32_globals: HashMap<u32, i32> = HashMap::new();
 
-	let search_js: &[u8] = include_bytes!("../../wasm/pkg/search.js");
-	let search_bg_wasm: &[u8] = include_bytes!("../../wasm/pkg/search_bg.wasm");
+	let docfind_js: &[u8] = include_bytes!("../../wasm/pkg/docfind.js");
+	let docfind_bg_wasm: &[u8] = include_bytes!("../../wasm/pkg/docfind_bg.wasm");
 
-	for payload in Parser::new(0).parse_all(search_bg_wasm) {
+	for payload in Parser::new(0).parse_all(docfind_bg_wasm) {
 		let payload = payload?;
 
 		// process i32 const data sections differently
@@ -152,7 +152,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 			if let Some((id, data)) = payload.as_section() {
 				sections.push(WasmSection::Raw {
 					id,
-					data: search_bg_wasm[data.start..data.end].to_vec(),
+					data: docfind_bg_wasm[data.start..data.end].to_vec(),
 				});
 			}
 
@@ -287,7 +287,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	std::fs::create_dir_all(output_dir)?;
 
 	let mut output_js = File::create(output_dir.join("search.js"))?;
-	output_js.write_all(search_js)?;
+	output_js.write_all(docfind_js)?;
 
 	let mut output_wasm = File::create(output_dir.join("search_bg.wasm"))?;
 	output_wasm.write_all(&wasm_bytes)?;
