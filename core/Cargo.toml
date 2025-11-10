@@ -1,5 +1,5 @@
 [package]
-name = "search"
+name = "docfind-core"
 version = "0.1.0"
 edition = "2024"
 
@@ -19,4 +19,3 @@ wasm = []
 
 [dev-dependencies.rake]
 version = "0.3"
-
