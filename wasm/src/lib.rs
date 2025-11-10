@@ -29,6 +29,7 @@ pub fn search(query: &str, max_results: Option<usize>) -> Result<String, JsValue
 	let result = search::search(index, query, max_results.unwrap_or(10))
 		.map_err(|e| JsValue::from_str(&format!("Search failed: {}", e)))?;
 
+	// TODO: can we return this as a JS object directly instead of serializing to JSON?
 	serde_json::to_string(&result)
 		.map_err(|e| JsValue::from_str(&format!("Failed to serialize results: {}", e)))
 }
