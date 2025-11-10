@@ -21,14 +21,43 @@ jobs:
       working-directory: core
 
   build:
-    runs-on: ubuntu-latest
     needs: test
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - os: macos-latest
+            target: x86_64-apple-darwin
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+    
+    runs-on: ${{ matrix.os }}
     
     steps:
     - uses: actions/checkout@v4
     
+    - name: Install Rust target
+      run: rustup target add ${{ matrix.target }}
+    
+    - name: Install cross-compilation tools (Linux ARM64)
+      if: matrix.target == 'aarch64-unknown-linux-gnu'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-aarch64-linux-gnu
+    
     - name: Install wasm-pack
+      if: runner.os != 'Windows'
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    
+    - name: Install wasm-pack (Windows)
+      if: runner.os == 'Windows'
+      run: npm install -g wasm-pack
+      shell: pwsh
     
     - name: Build WASM template
       run: wasm-pack build wasm --out-name search --release --target web
@@ -37,4 +66,6 @@ jobs:
       run: npx --yes esbuild --bundle wasm/pkg/search.js --format=esm --minify --outfile=wasm/pkg/search.js --allow-overwrite
     
     - name: Build CLI
-      run: cargo build --release -p cli
+      run: cargo build --release -p cli --target ${{ matrix.target }}
+      env:
+        CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
