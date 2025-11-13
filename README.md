@@ -57,11 +57,21 @@ Rename it to `docfind` (or `docfind.exe` on Windows), make it executable, and pl
 
 ### Building from Source
 
+#### Prerequisites
+
+Before building from source, ensure you have the following installed:
+
+1. **Rust** - [rustup.rs](https://rustup.rs/)
+2. **wasm-pack** - [drager.github.io/wasm-pack](https://drager.github.io/wasm-pack/)
+3. **Node.js** - [nodejs.org](https://nodejs.org/) (required for esbuild)
+
+#### Build
+
 ```bash
 ./scripts/build.sh
 ```
 
-The compiled binary will be available at `./target/release/cli`.
+The compiled binary will be available at `./target/release/docfind`.
 
 ## Usage
 
