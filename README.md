@@ -109,6 +109,21 @@ This creates:
 
 ## How It Works
 
+```mermaid
+flowchart LR
+    A([documents.json]) --> B[docfind]
+    B --> C[Keyword Extraction<br/>RAKE]
+    B --> E[FSST Compression<br/>document strings]
+    C --> D[FST Map<br/>keywords → docs]
+    D --> F[[Index]]
+    E --> F
+    F --> G([docfind_bg.wasm<br/>+ docfind.js])
+    
+    style A fill:#e1f5ff
+    style G fill:#e1f5ff
+    style F fill:#ffffcc
+```
+
 1. **Indexing Phase** (CLI):
    - Extracts keywords from document titles, categories, and bodies
    - Uses RAKE algorithm to identify important multi-word phrases
