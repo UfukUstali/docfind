@@ -1,23 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-echo "Building demo WASM files from static/documents.json..."
+echo "Building demo..."
 
-# Build the docfind CLI first if needed
-if [ ! -f "target/release/docfind" ]; then
-    echo "Building docfind CLI..."
-    ./scripts/build.sh
-fi
+# Build the docfind wasm first if needed
+echo "Building docfind wasm..."
+./scripts/build.sh
 
-# Generate WASM files from documents.json
-echo "Generating WASM files..."
-./target/release/docfind static/documents.json static/
+# Generate index from documents.json
+echo "Generating index..."
+node ./demo/build_index/main.js
 
-# Compress WASM with Brotli
-echo "Compressing WASM with Brotli..."
-brotli -k -f static/docfind_bg.wasm
+# Build search demo
+echo "Building search demo..."
+npx --yes esbuild --bundle wasm/search/pkg/docfind.js --format=esm --outfile=demo/search/docfind.js --allow-overwrite
+cp wasm/search/pkg/docfind_bg.wasm demo/search/docfind_bg.wasm
+
+cp demo/build_index/index.bin demo/search/index.bin
 
 echo "Demo build completed successfully!"
 echo ""
 echo "Generated files:"
-ls -lh static/docfind.js static/docfind_bg.wasm static/docfind_bg.wasm.br
+ls -lh demo/search

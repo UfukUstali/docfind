@@ -1,0 +1,72 @@
+[
+  {
+    "id": "prod-001",
+    "searchTerms": [
+      { "type": "raw", "value": "rust programming book", "weight": 90 },
+      { "type": "tokens", "value": ["electronics", "programming", "book"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-002",
+    "searchTerms": [
+      { "type": "raw", "value": "python guide", "weight": 90 },
+      { "type": "tokens", "value": ["programming", "python", "guide"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-003",
+    "searchTerms": [
+      { "type": "raw", "value": "javascript tutorial", "weight": 90 },
+      { "type": "tokens", "value": ["programming", "javascript", "web"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-004",
+    "searchTerms": [
+      { "type": "raw", "value": "data science handbook", "weight": 90 },
+      { "type": "tokens", "value": ["programming", "data", "science"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-005",
+    "searchTerms": [
+      { "type": "raw", "value": "machine learning guide", "weight": 90 },
+      { "type": "tokens", "value": ["ai", "machine learning", "programming"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-006",
+    "searchTerms": [
+      { "type": "raw", "value": "web development bootcamp", "weight": 90 },
+      { "type": "tokens", "value": ["web", "development", "programming"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-007",
+    "searchTerms": [
+      { "type": "raw", "value": "algorithms and data structures", "weight": 90 },
+      { "type": "tokens", "value": ["programming", "algorithms", "computer science"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-008",
+    "searchTerms": [
+      { "type": "raw", "value": "typescript handbook", "weight": 90 },
+      { "type": "tokens", "value": ["programming", "typescript", "javascript"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-009",
+    "searchTerms": [
+      { "type": "raw", "value": "docker kubernetes guide", "weight": 90 },
+      { "type": "tokens", "value": ["devops", "containers", "cloud"], "weight": 100 }
+    ]
+  },
+  {
+    "id": "prod-010",
+    "searchTerms": [
+      { "type": "raw", "value": "git version control", "weight": 90 },
+      { "type": "tokens", "value": ["git", "version control", "devops"], "weight": 100 }
+    ]
+  }
+]
